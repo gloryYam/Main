@@ -41,13 +41,13 @@ pipeline {
                             sh """
                             ls
                             pwd
-                            ssh ubuntu@54.180.212.28 'mkdir -p ~/Team-A' && scp -r -o StrictHostKeyChecking=no . ${DEPLOY_SERVER}:~/Main
+                            ssh ubuntu@54.180.212.28 'mkdir -p ~/Team-A' && scp -r -o StrictHostKeyChecking=no . ${DEPLOY_SERVER}:~/ci-cd
                             ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER} '
                             cd ~ &&
                             ls -al &&
-                            docker compose -f Main/${DOCKER_COMPOSE_FILE} down --remove-orphans &&
-                            docker compose -f Main/${DOCKER_COMPOSE_FILE} pull &&
-                            docker compose -f Main/${DOCKER_COMPOSE_FILE} up -d'
+                            docker compose -f ci-cd/${DOCKER_COMPOSE_FILE} down --remove-orphans &&
+                            docker compose -f ci-cd/${DOCKER_COMPOSE_FILE} pull &&
+                            docker compose -f ci-cd/${DOCKER_COMPOSE_FILE} up -d'
                             rm r -f Main
                             """
                         }
